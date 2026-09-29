@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Una aventura por Paime</title>
+<style>
+*{box-sizing:border-box}
+:root{--p:#6d45e8;--p2:#946aff;--ink:#182238;--muted:#667085;--green:#18b87a;--red:#df4168;--gold:#ffc83d}
+body{margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:linear-gradient(135deg,#eaf4ff,#fff2fa)}
+button{font:inherit}
+.screen{width:min(1080px,100%);margin:auto;padding:18px}
+.card{background:#fff;border-radius:28px;box-shadow:0 15px 45px rgba(24,34,56,.14)}
+.hidden{display:none!important}
+
+/* PORTADA */
+.cover{padding:34px;overflow:hidden}
+.badges{display:flex;gap:8px;flex-wrap:wrap}.badge{padding:9px 14px;border-radius:999px;background:#eee9ff;color:var(--p);font-weight:900}
+.covergrid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center;margin-top:18px}
+h1{font-size:clamp(46px,8vw,82px);line-height:.9;letter-spacing:-4px;margin:12px 0 18px}
+h1 span{color:var(--p)}
+.lead{font-size:21px;line-height:1.45;color:#566176}
+.author{font-weight:900;font-size:18px;margin-top:20px}.school{font-weight:800;color:#5f697c;margin-top:5px}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0}
+.feature{background:#f5f7fb;padding:13px;border-radius:15px;font-weight:800}
+.hero{min-height:390px;border-radius:24px;background-image:url("https://s2.wklcdn.com/image_320/9607178/137371190/87292199.jpg");background-size:cover;background-position:center;position:relative}
+.hero:after{content:"📍 PAIME · CUNDINAMARCA";position:absolute;left:14px;bottom:14px;color:#fff;background:rgba(0,0,0,.7);padding:10px 12px;border-radius:12px;font-weight:900}
+.primary{border:0;color:white;background:linear-gradient(135deg,var(--p),var(--p2));padding:15px 22px;border-radius:15px;font-weight:900;cursor:pointer;box-shadow:0 8px 20px rgba(109,69,232,.25)}
+.note{font-size:12px;color:#7a8495;line-height:1.5;margin-top:12px}
+
+/* JUEGO */
+.game{padding:20px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.brand{font-weight:950;font-size:21px}.brand span{color:var(--p)}
+.stats{display:flex;gap:8px;flex-wrap:wrap}.stat{background:#f5f7fb;border-radius:12px;padding:9px 12px;font-weight:900}.stat b{color:var(--p)}
+.progress{height:9px;background:#e6eaf2;border-radius:99px;overflow:hidden;margin:15px 0 20px}.bar{height:100%;width:25%;background:linear-gradient(90deg,#27a9ff,var(--p),#ff4f9a);transition:.25s}
+.heading{text-align:center}.heading h2{font-size:32px;margin:0 0 5px}.heading p{color:var(--muted);margin:0 0 18px}
+.layout{display:grid;grid-template-columns:.82fr 1.18fr;gap:20px}
+.reference,.puzzle{background:#f7f8fc;border-radius:20px;padding:14px}
+.reference img{width:100%;aspect-ratio:1.25;object-fit:cover;border-radius:15px;display:block}
+.reference h3{margin:12px 0 5px}.reference p{color:var(--muted);font-size:14px;line-height:1.4;margin:0}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;aspect-ratio:1;background:#dce2ed;padding:6px;border-radius:16px}
+.tile{border:0;border-radius:9px;cursor:pointer;padding:0;min-width:0;overflow:hidden;background:#ddd;box-shadow:0 3px 9px rgba(0,0,0,.13);touch-action:manipulation}
+.tile.selected{outline:4px solid var(--gold);transform:scale(.97);z-index:2}.tile.correct{outline:3px solid var(--green)}
+.tilebg{width:100%;height:100%;background-repeat:no-repeat;background-size:300% 300%}
+.instructions{text-align:center;color:#69758a;font-size:13px;margin:10px 0}
+.message{text-align:center;min-height:26px;font-weight:900}.good{color:var(--green)}.bad{color:var(--red)}
+.actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:8px}
+.secondary{border:0;background:#e9edf5;color:var(--ink);padding:11px 15px;border-radius:13px;font-weight:850;cursor:pointer}
+.credit{text-align:center;color:#7b8495;font-size:11px;margin-top:13px}
+
+/* FINAL */
+.final{text-align:center;padding:38px}.trophy{font-size:65px}.final h2{font-size:42px;margin:10px 0}.stars{font-size:45px;margin:12px}.final p{color:var(--muted);font-size:18px;line-height:1.5}
+@media(max-width:760px){.cover{padding:22px}.covergrid,.layout{grid-template-columns:1fr}.hero{min-height:240px;order:-1}h1{letter-spacing:-2px}.game{padding:13px}.heading h2{font-size:26px}}
+</style>
+</head>
+<body>
+
+<section id="cover" class="screen">
+<div class="card cover">
+<div class="badges"><div class="badge">🎮 JUEGO EDUCATIVO</div><div class="badge">🌿 PAIME · TUDELA</div></div>
+<div class="covergrid">
+<div>
+<h1>Una aventura<br><span>por Paime</span></h1>
+<p class="lead">Acomoda las figuras y descubre lugares y paisajes de Paime y Tudela mediante fotografías reales.</p>
+<div class="author">Creado por Edinson Gómez · Grado undécimo</div>
+<div class="school">I.E.R.D.N.Tudela</div>
+<div class="features">
+<div class="feature">🧩 4 niveles</div><div class="feature">📸 Fotos reales</div>
+<div class="feature">💧 Cascadas</div><div class="feature">🏆 Puntos y estrellas</div>
+</div>
+<button id="start" class="primary">🚀 COMENZAR AVENTURA</button>
+<div class="note">En celular o computador: toca una pieza y luego otra para intercambiarlas. También puedes revolver o reiniciar el nivel.</div>
+</div>
+<div class="hero"></div>
+</div>
+</div>
+</section>
+
+<section id="game" class="screen hidden">
+<div class="card game">
+<div class="top">
+<div class="brand">Una aventura <span>por Paime</span> 🌿</div>
+<div class="stats">
+<div class="stat">🏆 <b id="score">0</b></div><div class="stat">❤️ <b id="lives">3</b></div>
+<div class="stat">⏱️ <b id="time">120</b></div><div class="stat">🧩 <b id="level">1</b>/7</div>
+</div>
+</div>
+<div class="progress"><div id="bar" class="bar"></div></div>
+<div class="heading"><h2 id="title">Acomoda la fotografía</h2><p id="desc"></p></div>
+<div class="layout">
+<div class="reference">
+<img id="ref" alt="">
+<h3 id="name"></h3>
+<p>Usa la imagen de referencia y reconstruye el rompecabezas.</p>
+</div>
+<div class="puzzle">
+<div id="board" class="board"></div>
+<div class="instructions">👆 Selecciona dos piezas para intercambiarlas.</div>
+<div id="message" class="message" aria-live="polite"></div>
+<div class="actions">
+<button id="shuffle" class="secondary">🔀 Revolver</button>
+<button id="reset" class="secondary">↩️ Reiniciar</button>
+<button id="home" class="secondary">🏠 Portada</button>
+</div>
+</div>
+</div>
+<div id="credit" class="credit"></div>
+</div>
+</section>
+
+<section id="final" class="screen hidden">
+<div class="card final">
+<div class="trophy">🏆</div><h2 id="finalTitle">¡Aventura completada!</h2>
+<div id="stars" class="stars">⭐⭐⭐</div><p id="finalText"></p>
+<button id="again" class="primary">🔁 JUGAR OTRA VEZ</button>
+<button id="finalHome" class="secondary">🏠 PORTADA</button>
+</div>
+</section>
+
+<script>
+const LEVELS=[
+  {
+    "name": "Entrada a Paime",
+    "desc": "Reconstruye el letrero de entrada al municipio de Paime.",
+    "url": "https://s2.wklcdn.com/image_320/9607178/137371190/87292199.jpg",
+    "credit": "Fotografía: Wikiloc, ruta Paime–Tudela–Villagómez.",
+    "time": 55
+  },
+  {
+    "name": "Tudela",
+    "desc": "Arma la fotografía de bienvenida a Tudela.",
+    "url": "https://s2.wklcdn.com/image_320/9607178/137371197/87292253Master.jpg",
+    "credit": "Fotografía: Wikiloc, ruta Paime–Tudela–Villagómez.",
+    "time": 50
+  },
+  {
+    "name": "Cascada de Paime",
+    "desc": "Reconstruye una cascada del recorrido por Paime y sus alrededores.",
+    "url": "https://s2.wklcdn.com/image_320/9607178/137371192/87292208Master.jpg",
+    "credit": "Fotografía: Wikiloc, ruta Paime–Tudela–Villagómez.",
+    "time": 45
+  },
+  {
+    "name": "Paime desde lo alto",
+    "desc": "Arma la panorámica de Paime vista desde arriba.",
+    "url": "https://www.semana.com/resizer/v2/GJRZ4PR7DFBRHDP3DOWQWKSJ34.jpg?auth=c4427e8e2e052e8cd71d1f87b289b0dfd4d7c5ec63bfb92f13e60b088cb7623c&height=720&smart=true&width=1280",
+    "credit": "Fotografía: cortesía de la Alcaldía Municipal de Paime, publicada por Semana.",
+    "time": 40
+  }
+];
+let levelIndex=0,score=0,lives=3,time=120,selected=null,locked=false,timer=null;
+
+function $(id){return document.getElementById(id)}
+function show(id){["cover","game","final"].forEach(x=>$(x).classList.toggle("hidden",x!==id))}
+function update(){
+$("score").textContent=score;$("lives").textContent=lives;$("time").textContent=Math.max(0,time);$("level").textContent=levelIndex+1;
+$("bar").style.width=((levelIndex/LEVELS.length)*100+25)+"%";
+}
+function start(){
+clearInterval(timer);levelIndex=0;score=0;lives=3;time=120;show("game");load();
+timer=setInterval(function(){if(locked)return;time--;update();if(time<=0){clearInterval(timer);end(false)}},1000)
+}
+function load(){
+locked=false;selected=null;const p=LEVELS[levelIndex];
+$("ref").src=p.url;$("ref").alt="Fotografía real de "+p.name;$("name").textContent=p.name;
+$("title").textContent="🧩 "+p.name;$("desc").textContent=p.desc;$("credit").textContent=p.credit;
+$("message").textContent="";$("message").className="message";makePuzzle();update()
+}
+function shuffle(){
+let a=[0,1,2,3,4,5,6,7,8];do{a.sort(function(){return Math.random()-.5})}while(a.every(function(v,i){return v===i}));
+return a
+}
+function makePuzzle(){
+const board=$("board");board.innerHTML="";
+shuffle().forEach(function(piece){board.appendChild(makeTile(piece))})
+}
+function makeTile(piece){
+const b=document.createElement("button");b.className="tile";b.type="button";b.dataset.piece=piece;
+const bg=document.createElement("div");bg.className="tilebg";bg.style.backgroundImage='url("'+LEVELS[levelIndex].url+'")';
+const col=piece%3,row=Math.floor(piece/3);bg.style.backgroundPosition=(col*50)+"% "+(row*50)+"%";
+b.appendChild(bg);b.addEventListener("click",function(){choose(b)});return b
+}
+function choose(tile){
+if(locked)return;
+if(!selected){selected=tile;tile.classList.add("selected");return}
+if(selected===tile){tile.classList.remove("selected");selected=null;return}
+swap(selected,tile);selected.classList.remove("selected");selected=null;check()
+}
+function swap(a,b){
+const board=$("board");
+const marker=document.createElement("span");
+board.replaceChild(marker,a);
+board.replaceChild(a,b);
+board.replaceChild(b,marker);
+}
+function check(){
+const tiles=[...$("board").children];let good=0;
+tiles.forEach(function(t,i){const ok=Number(t.dataset.piece)===i;if(ok)good++;t.classList.toggle("correct",ok)});
+if(good===9){
+locked=true;const bonus=100+time*2;score+=bonus;update();
+$("message").className="message good";$("message").textContent="🎉 ¡Perfecto! +"+bonus+" puntos";
+setTimeout(function(){if(levelIndex<LEVELS.length-1){levelIndex++;load()}else{clearInterval(timer);end(true)}},800)
+}
+}
+function end(won){
+clearInterval(timer);locked=true;show("final");
+$("finalTitle").textContent=won?"¡Aventura completada!":"¡Fin de la aventura!";
+$("stars").textContent=won?(score>=1200?"⭐⭐⭐":score>=700?"⭐⭐":"⭐"):"⭐";
+$("finalText").innerHTML=won?"Completaste todos los rompecabezas de la aventura.<br><b>Puntaje final: "+score+" puntos.</b>":"Se terminó el tiempo.<br><b>Puntaje final: "+score+" puntos.</b>";
+}
+$("start").onclick=start;$("again").onclick=start;
+$("shuffle").onclick=function(){if(!locked)makePuzzle()};
+$("reset").onclick=function(){if(!locked)load()};
+$("home").onclick=function(){clearInterval(timer);show("cover")};
+$("finalHome").onclick=function(){show("cover")};
+</script>
+</body>
+</html>
